@@ -6,7 +6,7 @@ import { RoomComponent }       from './room.component';
 
 const appRoutes: Routes = [
   {
-    path: '',
+    path: 'logged-in.html',
     redirectTo: '/scheduler',
     pathMatch: 'full'
   },
