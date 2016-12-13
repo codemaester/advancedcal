@@ -1,6 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import {Participant} from './participant';
 
+const PARTICIPANTS: Participant[] = [
+  {email: "liam.burke@monarch.com", level: "required"},
+  {email: "paul.serene@monarch.com", level: "optional"},
+  {email: "beth.wilders@monarch.com", level: "important"},
+  {email: "jack.joyce@monarch.com", level: "required"}
+
+];
+
 @Component({
   selector: 'scheduler',
   templateUrl: 'app/scheduler.component.html'
@@ -12,11 +20,7 @@ export class SchedulerComponent implements OnInit {
   level: String = "important";
 
   ngOnInit(): void {
-    this.participants = [
-      new Participant("liam.burke@monarch.com", "required"),
-      new Participant("paul.serene@monarch.com", "optional"),
-      new Participant("beth.wilders@monarch.com", "important"),
-      new Participant("jack.joyce@monarch.com", "required")];
+    this.participants = PARTICIPANTS;
   }
 
   get diagnostic() { return JSON.stringify(this.participants); }
