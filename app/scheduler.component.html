@@ -7,7 +7,7 @@
   <div class="form-group">
     <div class="input-group">
       <input type="text" class="form-control" id="emailInput" name="emailInput"
-      [(ngModel)]="currentParticipant.email" placeholder="Email..."/>
+      [(ngModel)]="participant.email" placeholder="Email..."/>
       <span class="input-group-btn">
         <button class="btn btn-default" type="button" (click)="onAdd()">Add</button>
       </span>
@@ -20,16 +20,19 @@
       <th>Priority</th>
       <th></th>
     </tr>
-    <tr *ngFor="let participant of participants; let i=index" name="participants">
+    <tr *ngFor="let participant of booking.participants; let i=index" name="participants">
       <td>{{participant.email}}</td>
       <td>
           <select class="form-control" required
-          [(ngModel)]="participant.level" name="level--{{i}}">
-             <option *ngFor="let lev of levels" [value]="lev">{{lev}}</option>
+          [(ngModel)]="participant.attendanceLevel" name="level--{{i}}">
+             <option *ngFor="let lev of levels" [ngValue]="lev">
+               {{lev.name}}
+             </option>
           </select>
       </td>
       <td class="col-lg-1">
-        <button type="button" class="btn btn-default" aria-label="Remove">
+        <button type="button" class="btn btn-default" aria-label="Remove"
+          (click)="onRemove(i)">
           <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
         </button>
       </td>

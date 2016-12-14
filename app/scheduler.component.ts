@@ -1,32 +1,33 @@
-import { Component, OnInit } from '@angular/core';
-import {Participant} from './participant';
-
-const PARTICIPANTS: Participant[] = [
-  {email: "liam.burke@monarch.com", level: "required"},
-  {email: "paul.serene@monarch.com", level: "optional"},
-  {email: "beth.wilders@monarch.com", level: "important"},
-  {email: "jack.joyce@monarch.com", level: "required"}
-
-];
+import { Component, OnInit }      from '@angular/core';
+import { Participant }            from './participant';
+import { Booking }                from './booking';
+import { AttendanceLevel, REQUIRED, OPTIONAL, IMPORTANT }
+                                  from './attendance-level';
 
 @Component({
   selector: 'scheduler',
   templateUrl: 'app/scheduler.component.html'
 })
 export class SchedulerComponent implements OnInit {
-  currentParticipant: Participant = new Participant("", "required");
-  participants: Participant[];
-  levels: String[] = ["required", "important", "optional"];
-  level: String = "important";
+
+  levels: AttendanceLevel[] = [REQUIRED, IMPORTANT, OPTIONAL];
+  participant: Participant = {email: "", attendanceLevel: REQUIRED};
+
+  constructor(
+    private booking: Booking) { }
 
   ngOnInit(): void {
-    this.participants = PARTICIPANTS;
   }
 
   get diagnostic() { return JSON.stringify(this.participants); }
 
   onAdd(): void {
-    this.participants.push(this.currentParticipant);
-    this.currentParticipant = new Participant("", "required");
+    this.booking.participants.push(this.participant);
+    this.participant = {email: "", attendanceLevel: REQUIRED};
   }
+
+  onRemove(i: number): void {
+    this.booking.participants.splice(i, 1);
+  }
+
 }
