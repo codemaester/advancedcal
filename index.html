@@ -1,73 +1,31 @@
-<!DOCTYPE html>
 <html>
-<head>
-  <base href="/">
-  <title>Calendar expert</title>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link href="node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link href="starter-template.css" rel="stylesheet">
-  <meta name="google-signin-client_id" content="856180464049-c7ao6o5cgchfnta0oejgctf9766ag5gv.apps.googleusercontent.com">
-</head>
-
-<body>
-
-  <nav class="navbar navbar-inverse navbar-fixed-top">
-    <div class="container">
-      <div class="navbar-header">
-        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-          <span class="sr-only">Toggle navigation</span>
-          <span class="icon-bar"></span>
-        </button>
-        <a class="navbar-brand" href="#">Calendar assistant</a>
-      </div>
-      <div id="navbar" class="collapse navbar-collapse">
-        <ul class="nav navbar-nav">
-          <li class="active"><a href="#">Sign in</a></li>
-        </ul>
-      </div>
-    </div>
-  </nav>
-
-  <div class="container">
-
-    <div class="jumbotron">
-      <h1>Caliscope</h1>
-      <p>Tired of running into full calendars?<br> This tool helps you finding the perfect splot for a group of busy people.</p>
-      <p><div id="my-signin2"></div></p>
-    </div>
-
-
+  <head>
+    <base href="/">
+    <title>Calendar expert</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="google-signin-client_id" content="856180464049-c7ao6o5cgchfnta0oejgctf9766ag5gv.apps.googleusercontent.com">
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <link href="node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+    <!-- 1. Load libraries -->
+     <!-- Polyfill(s) for older browsers -->
+    <script src="node_modules/core-js/client/shim.min.js"></script>
+    <script src="node_modules/zone.js/dist/zone.js"></script>
+    <script src="node_modules/reflect-metadata/Reflect.js"></script>
+    <script src="node_modules/systemjs/dist/system.src.js"></script>
+    <!-- 2. Configure SystemJS -->
+    <script src="systemjs.config.js"></script>
     <script>
-    function onSuccess(googleUser) {
-      //window.location="scheduler_test.html"
-      window.location="logged-in.html"
-    }
-    function onFailure(error) {
-      console.log(error);
-    }
-    function renderButton() {
-      gapi.signin2.render('my-signin2', {
-        'scope': 'profile email',
-        'width': 240,
-        'height': 50,
-        'longtitle': true,
-        'theme': 'dark',
-        'onsuccess': onSuccess,
-        'onfailure': onFailure
-      });
-    }
+      System.import('app').catch(function(err){ console.error(err); });
     </script>
 
-    <script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
-
-  </div><!-- /.container -->
-  <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-  <!-- Include all compiled plugins (below), or include individual files as needed -->
-  <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
-</body>
-</html>
-
+  </head>
+  <!-- 3. Display the application -->
+  <body>
+    <calendar-app>Loading...</calendar-app>
+  </body>
 </html>

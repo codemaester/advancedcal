@@ -19,8 +19,6 @@ export class SchedulerComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  get diagnostic() { return JSON.stringify(this.participants); }
-
   onAdd(): void {
     this.booking.participants.push(this.participant);
     this.participant = {email: "", attendanceLevel: REQUIRED};
