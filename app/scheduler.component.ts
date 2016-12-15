@@ -1,6 +1,8 @@
 import { Component, OnInit }      from '@angular/core';
 import { Participant }            from './participant';
 import { Booking }                from './booking';
+import { GlobalState }            from './global-state';
+import { Router }                 from '@angular/router';
 import { AttendanceLevel, REQUIRED, OPTIONAL, IMPORTANT }
                                   from './attendance-level';
 
@@ -13,10 +15,14 @@ export class SchedulerComponent implements OnInit {
   levels: AttendanceLevel[] = [REQUIRED, IMPORTANT, OPTIONAL];
   participant: Participant = {email: "", attendanceLevel: REQUIRED};
 
-  constructor(
-    private booking: Booking) { }
+  constructor(private booking: Booking, private state: GlobalState,
+    private router: Router) {
+  }
 
   ngOnInit(): void {
+    if (!this.state.signedIn) {
+      this.router.navigate(['/about']);
+    }
   }
 
   onAdd(): void {

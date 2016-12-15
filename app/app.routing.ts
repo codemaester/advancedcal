@@ -1,24 +1,19 @@
 import { ModuleWithProviders }  from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { SigninComponent }  from './signin.component';
-import { SignoutComponent }  from './signout.component';
+import { AboutComponent }  from './about.component';
 import { SchedulerComponent }  from './scheduler.component';
 import { RoomComponent }       from './room.component';
 
 const appRoutes: Routes = [
   {
     path: '',
-    redirectTo: '/signin',
+    redirectTo: '/about',
     pathMatch: 'full'
   },
   {
-    path: 'signin',
-    component: SigninComponent
-  },
-  {
-    path: 'signout',
-    component: SignoutComponent
+    path: 'about',
+    component: AboutComponent
   },
   {
     path: 'scheduler',

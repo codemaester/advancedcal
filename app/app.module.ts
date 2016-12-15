@@ -4,10 +4,10 @@ import { FormsModule }    from '@angular/forms';
 
 import { AppComponent }       from './app.component';
 import { SchedulerComponent } from './scheduler.component';
-import { SigninComponent }    from './signin.component';
-import { SignoutComponent }   from './signout.component';
+import { AboutComponent }    from './about.component';
 import { RoomComponent }      from './room.component';
 import { routing }            from './app.routing';
+import { GlobalState }        from './global-state';
 import { Booking }            from './booking';
 
 @NgModule({
@@ -18,13 +18,12 @@ import { Booking }            from './booking';
   ],
   declarations: [
     AppComponent,
-    SigninComponent,
-    SignoutComponent,
+    AboutComponent,
     SchedulerComponent,
     RoomComponent
   ],
   providers: [
-    Booking
+    Booking, GlobalState
   ],
   bootstrap: [ AppComponent ]
 })
