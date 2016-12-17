@@ -16,7 +16,7 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {
     gapi.signin2.render('my-signin2', {
-      'scope': 'profile email',
+      'scope': 'profile email https://www.googleapis.com/auth/admin.directory.user.readonly',
       'width': 240,
       'height': 50,
       'longtitle': true,

@@ -4,11 +4,12 @@ import { FormsModule }    from '@angular/forms';
 
 import { AppComponent }       from './app.component';
 import { SchedulerComponent } from './scheduler.component';
-import { AboutComponent }    from './about.component';
+import { AboutComponent }     from './about.component';
 import { RoomComponent }      from './room.component';
 import { routing }            from './app.routing';
 import { GlobalState }        from './global-state';
 import { Booking }            from './booking';
+import { CalendarService }   from './calendar.service';
 
 @NgModule({
   imports: [
@@ -23,7 +24,7 @@ import { Booking }            from './booking';
     RoomComponent
   ],
   providers: [
-    Booking, GlobalState
+    Booking, GlobalState, CalendarService
   ],
   bootstrap: [ AppComponent ]
 })

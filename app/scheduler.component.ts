@@ -1,8 +1,9 @@
 import { Component, OnInit }      from '@angular/core';
+import { Router }                 from '@angular/router';
 import { Participant }            from './participant';
 import { Booking }                from './booking';
 import { GlobalState }            from './global-state';
-import { Router }                 from '@angular/router';
+import { CalendarService }        from './calendar.service';
 import { AttendanceLevel, REQUIRED, OPTIONAL, IMPORTANT }
                                   from './attendance-level';
 
@@ -16,7 +17,7 @@ export class SchedulerComponent implements OnInit {
   participant: Participant = {email: "", attendanceLevel: REQUIRED};
 
   constructor(private booking: Booking, private state: GlobalState,
-    private router: Router) {
+    private router: Router, private calendarService: CalendarService) {
   }
 
   ngOnInit(): void {
@@ -32,6 +33,10 @@ export class SchedulerComponent implements OnInit {
 
   onRemove(i: number): void {
     this.booking.participants.splice(i, 1);
+  }
+
+  onSearch(): void {
+    this.calendarService.execute();
   }
 
 }
