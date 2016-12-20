@@ -30,6 +30,8 @@ export class AppComponent implements OnInit {
 
   onSuccess(googleUser: any): void {
     this.state.signedIn = true;
+    this.state.imageUrl = googleUser.getBasicProfile().getImageUrl();
+    this.state.userName = googleUser.getBasicProfile().getGivenName();
     this.router.navigate(['/scheduler']);
   }
 

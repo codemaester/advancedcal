@@ -8,8 +8,7 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" routerLink="/about">
-          Calendar assistant</a>
+        <a class="navbar-brand" routerLink="/about">Calendar Wizard</a>
       </div>
       <div id="navbar" class="collapse navbar-collapse">
         <ul class="nav navbar-nav">
@@ -22,8 +21,9 @@
         </ul>
 
         <form *ngIf="state.signedIn" class="navbar-form navbar-right">
+          <img [src]="state.imageUrl" class="img-circle" height="32" width="32"/>
           <button type="submit" class="btn btn-default"
-            (click)="signOut()">Sign out</button>
+            (click)="signOut()">Sign out {{state.userName}}</button>
         </form>
 
       </div>

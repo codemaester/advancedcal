@@ -1,5 +1,9 @@
 import { Component, OnInit }      from '@angular/core';
 import { Router }                 from '@angular/router';
+import { Observable }             from 'rxjs/Observable';
+
+import { TypeaheadMatch } from 'ng2-bootstrap';
+
 import { Participant }            from './participant';
 import { Booking }                from './booking';
 import { GlobalState }            from './global-state';
@@ -14,10 +18,19 @@ import { AttendanceLevel, REQUIRED, OPTIONAL, IMPORTANT }
 export class SchedulerComponent implements OnInit {
 
   levels: AttendanceLevel[] = [REQUIRED, IMPORTANT, OPTIONAL];
-  participant: Participant = {email: "", attendanceLevel: REQUIRED};
+  participant: Participant = {email: "", name: "", attendanceLevel: REQUIRED};
+
+  public dataSource:Observable<any>;
+  public typeaheadLoading:boolean = false;
+  public typeaheadNoResults:boolean = false;
+
+
 
   constructor(private booking: Booking, private state: GlobalState,
     private router: Router, private calendarService: CalendarService) {
+      this.dataSource = Observable.create((observer:any) => {
+        observer.next(this.participant.email);
+      }).mergeMap((token:string) => this.calendarService.findUsers(token));
   }
 
   ngOnInit(): void {
@@ -28,7 +41,7 @@ export class SchedulerComponent implements OnInit {
 
   onAdd(): void {
     this.booking.participants.push(this.participant);
-    this.participant = {email: "", attendanceLevel: REQUIRED};
+    this.participant = {email: "", name: "", attendanceLevel: REQUIRED};
   }
 
   onRemove(i: number): void {
@@ -38,5 +51,19 @@ export class SchedulerComponent implements OnInit {
   onSearch(): void {
     this.calendarService.execute();
   }
+
+ changeTypeaheadLoading(loading:boolean):void {
+   this.typeaheadLoading = loading;
+ }
+
+ changeTypeaheadNoResults(noResult:boolean):void {
+   this.typeaheadNoResults = noResult;
+ }
+
+ typeaheadOnSelect(e:any):void {
+   this.participant.email = e.item.email;
+   this.participant.name = e.item.name;
+   this.onAdd();
+ }
 
 }
