@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 
-import { Participant, PARTICIPANTS } from './participant';
+import { Participant } from './participant';
 
 @Injectable()
 export class Booking {
-  participants: Participant[] = PARTICIPANTS;
+  participants: Participant[] = [];
 }

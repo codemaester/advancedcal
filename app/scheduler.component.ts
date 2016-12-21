@@ -26,7 +26,7 @@ export class SchedulerComponent implements OnInit {
 
   constructor(private booking: Booking, private state: GlobalState,
     private router: Router, private calendarService: CalendarService,
-    private zone: NgZone) {
+    private zone:NgZone) {
 
       this.dataSource = Observable.create((observer:any) => {
         this.calendarService.findUsers(this.participant.email)
@@ -43,7 +43,7 @@ export class SchedulerComponent implements OnInit {
             });
 
           }
-          observer.next(users_result);
+          zone.run(() => observer.next(users_result));
           observer.complete();
 
         })
