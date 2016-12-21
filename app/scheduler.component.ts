@@ -1,4 +1,4 @@
-import { Component, OnInit }      from '@angular/core';
+import { Component, OnInit, NgZone }      from '@angular/core';
 import { Router }                 from '@angular/router';
 import { Observable }             from 'rxjs/Observable';
 
@@ -24,14 +24,40 @@ export class SchedulerComponent implements OnInit {
   public typeaheadLoading:boolean = false;
   public typeaheadNoResults:boolean = false;
 
-
+  private users:Array<any> = [
+    {name: "Liam Burke", email: "liam.burke@monarch.com"},
+    {name: "Liam Borke", email: "liam.borke@monarch.com"},
+    {name: "Liam Smith", email: "liam.smith@monarch.com"},
+    {name: "Paul Seren", email: "paul.serene@monarch.com"},
+    {name: "Beth Wilders", email: "beth.wilders@monarch.com"},
+    {name: "Jack Joyce", email: "jack.joyce@monarch.com"}];
 
   constructor(private booking: Booking, private state: GlobalState,
-    private router: Router, private calendarService: CalendarService) {
+    private router: Router, private calendarService: CalendarService,
+    private zone: NgZone) {
+
       this.dataSource = Observable.create((observer:any) => {
-        observer.next(this.participant.email);
-      }).mergeMap((token:string) => this.calendarService.findUsers(token));
-  }
+        this.calendarService.findUsers(this.participant.email)
+          .then((response:any) => {
+          if (!response.result) {
+            observer.complete();
+            return;
+          }
+          let users_result:Array<any> = [];
+          for(let user of response.result.users) {
+            users_result.push({
+              'name': user.name.fullName,
+              'email': user.primaryEmail
+            });
+
+          }
+          observer.next(users_result);
+          observer.complete();
+
+        })
+      });
+}
+
 
   ngOnInit(): void {
     if (!this.state.signedIn) {
@@ -49,7 +75,6 @@ export class SchedulerComponent implements OnInit {
   }
 
   onSearch(): void {
-    this.calendarService.execute();
   }
 
  changeTypeaheadLoading(loading:boolean):void {
@@ -60,7 +85,7 @@ export class SchedulerComponent implements OnInit {
    this.typeaheadNoResults = noResult;
  }
 
- typeaheadOnSelect(e:any):void {
+ typeaheadOnSelect(e:TypeaheadMatch):void {
    this.participant.email = e.item.email;
    this.participant.name = e.item.name;
    this.onAdd();

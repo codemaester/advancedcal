@@ -17,7 +17,7 @@ import { CalendarService }   from './calendar.service';
     BrowserModule,
     FormsModule,
     routing,
-    TypeaheadModule.forRoot()
+    TypeaheadModule
   ],
   declarations: [
     AppComponent,

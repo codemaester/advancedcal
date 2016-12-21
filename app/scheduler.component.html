@@ -14,6 +14,7 @@
       (typeaheadNoResults)="changeTypeaheadNoResults($event)"
       (typeaheadOnSelect)="typeaheadOnSelect($event)"
       [typeaheadOptionsLimit]="10"
+      [typeaheadMinLength]="3"
       [typeaheadOptionField]="'name'">
     </div>
   <button class="btn btn-default" type="submit" (click)="onAdd()">Add</button>
