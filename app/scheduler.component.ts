@@ -24,14 +24,6 @@ export class SchedulerComponent implements OnInit {
   public typeaheadLoading:boolean = false;
   public typeaheadNoResults:boolean = false;
 
-  private users:Array<any> = [
-    {name: "Liam Burke", email: "liam.burke@monarch.com"},
-    {name: "Liam Borke", email: "liam.borke@monarch.com"},
-    {name: "Liam Smith", email: "liam.smith@monarch.com"},
-    {name: "Paul Seren", email: "paul.serene@monarch.com"},
-    {name: "Beth Wilders", email: "beth.wilders@monarch.com"},
-    {name: "Jack Joyce", email: "jack.joyce@monarch.com"}];
-
   constructor(private booking: Booking, private state: GlobalState,
     private router: Router, private calendarService: CalendarService,
     private zone: NgZone) {
