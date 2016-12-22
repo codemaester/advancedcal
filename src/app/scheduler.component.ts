@@ -2,7 +2,7 @@ import { Component, OnInit, NgZone }      from '@angular/core';
 import { Router }                 from '@angular/router';
 import { Observable }             from 'rxjs/Observable';
 
-import { TypeaheadMatch } from 'ng2-bootstrap';
+//import { TypeaheadMatch } from 'ng2-bootstrap';
 
 import { Participant }            from './participant';
 import { Booking }                from './booking';
@@ -27,6 +27,7 @@ export class SchedulerComponent implements OnInit {
   constructor(private booking: Booking, private state: GlobalState,
     private router: Router, private calendarService: CalendarService,
     private zone:NgZone) {
+
 
       this.dataSource = Observable.create((observer:any) => {
         this.calendarService.findUsers(this.participant.email)
@@ -77,7 +78,7 @@ export class SchedulerComponent implements OnInit {
    this.typeaheadNoResults = noResult;
  }
 
- typeaheadOnSelect(e:TypeaheadMatch):void {
+ typeaheadOnSelect(e:any):void {
    this.participant.email = e.item.email;
    this.participant.name = e.item.name;
    this.onAdd();
