@@ -1,15 +1,16 @@
 import { Component, OnInit, NgZone }      from '@angular/core';
 import { Router }                 from '@angular/router';
 import { Observable }             from 'rxjs/Observable';
-
-//import { TypeaheadMatch } from 'ng2-bootstrap';
+import * as moment from 'moment';
+import { TypeaheadMatch } from 'ng2-bootstrap';
 
 import { Participant }            from './participant';
 import { Booking }                from './booking';
 import { GlobalState }            from './global-state';
 import { CalendarService }        from './calendar.service';
-import { AttendanceLevel, REQUIRED, OPTIONAL, IMPORTANT }
-                                  from './attendance-level';
+import { AttendanceLevel, REQUIRED, LEVELS } from './attendance-level';
+import { Duration, DURATIONS } from './duration';
+import { DateModel } from 'ng2-datepicker';
 
 @Component({
   selector: 'scheduler',
@@ -17,17 +18,15 @@ import { AttendanceLevel, REQUIRED, OPTIONAL, IMPORTANT }
 })
 export class SchedulerComponent implements OnInit {
 
-  levels: AttendanceLevel[] = [REQUIRED, IMPORTANT, OPTIONAL];
   participant: Participant = {email: "", name: "", attendanceLevel: REQUIRED};
+  levels: Array<AttendanceLevel> = LEVELS;
+  durations: Array<Duration> = DURATIONS;
 
-  public dataSource:Observable<any>;
-  public typeaheadLoading:boolean = false;
-  public typeaheadNoResults:boolean = false;
+  dataSource:Observable<any>;
 
   constructor(private booking: Booking, private state: GlobalState,
     private router: Router, private calendarService: CalendarService,
     private zone:NgZone) {
-
 
       this.dataSource = Observable.create((observer:any) => {
         this.calendarService.findUsers(this.participant.email)
@@ -36,17 +35,13 @@ export class SchedulerComponent implements OnInit {
             observer.complete();
             return;
           }
-          let users_result:Array<any> = [];
-          for(let user of response.result.users) {
-            users_result.push({
-              'name': user.name.fullName,
-              'email': user.primaryEmail
-            });
-
-          }
+          let users_result:Array<any> = response.result.users.map(
+              user => ({
+                'name': user.name.fullName,
+                'email': user.primaryEmail })
+          );
           zone.run(() => observer.next(users_result));
           observer.complete();
-
         })
       });
 }
@@ -70,15 +65,7 @@ export class SchedulerComponent implements OnInit {
   onSearch(): void {
   }
 
- changeTypeaheadLoading(loading:boolean):void {
-   this.typeaheadLoading = loading;
- }
-
- changeTypeaheadNoResults(noResult:boolean):void {
-   this.typeaheadNoResults = noResult;
- }
-
- typeaheadOnSelect(e:any):void {
+ typeaheadOnSelect(e:TypeaheadMatch):void {
    this.participant.email = e.item.email;
    this.participant.name = e.item.name;
    this.onAdd();

@@ -13,7 +13,8 @@ import { Observable } from 'rxjs/Observable';
 import { Booking } from './booking';
 import { GlobalState } from './global-state';
 import { CalendarService } from './calendar.service';
-import { REQUIRED, OPTIONAL, IMPORTANT } from './attendance-level';
+import { REQUIRED, LEVELS } from './attendance-level';
+import { DURATIONS } from './duration';
 var SchedulerComponent = (function () {
     function SchedulerComponent(booking, state, router, calendarService, zone) {
         var _this = this;
@@ -22,8 +23,9 @@ var SchedulerComponent = (function () {
         this.router = router;
         this.calendarService = calendarService;
         this.zone = zone;
-        this.levels = [REQUIRED, IMPORTANT, OPTIONAL];
         this.participant = { email: "", name: "", attendanceLevel: REQUIRED };
+        this.levels = LEVELS;
+        this.durations = DURATIONS;
         this.dataSource = Observable.create(function (observer) {
             _this.calendarService.findUsers(_this.participant.email)
                 .then(function (response) {
@@ -71,4 +73,4 @@ SchedulerComponent = __decorate([
         NgZone])
 ], SchedulerComponent);
 export { SchedulerComponent };
-//# sourceMappingURL=../../../src/app/scheduler.component.js.map
+//# sourceMappingURL=../../../../src/app/scheduler.component.js.map

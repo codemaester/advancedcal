@@ -2,6 +2,7 @@ import { NgModule }       from '@angular/core';
 import { BrowserModule }  from '@angular/platform-browser';
 import { FormsModule }    from '@angular/forms';
 import { TypeaheadModule } from 'ng2-bootstrap';
+import { DatePickerModule } from 'ng2-datepicker';
 
 import { AppComponent }       from './app.component';
 import { SchedulerComponent } from './scheduler.component';
@@ -17,7 +18,8 @@ import { CalendarService }   from './calendar.service';
     BrowserModule,
     FormsModule,
     routing,
-    TypeaheadModule.forRoot()
+    TypeaheadModule.forRoot(),
+    DatePickerModule
   ],
   declarations: [
     AppComponent,
