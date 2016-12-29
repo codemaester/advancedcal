@@ -3,3 +3,4 @@ typings
 *.map
 app/*.js
 npm-debug.log
+dist
