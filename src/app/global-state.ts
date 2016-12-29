@@ -7,8 +7,10 @@ export class GlobalState {
   signedIn: boolean = false;
   userName: string = "";
   imageUrl: string = "";
+  email: string = "";
   // Date picker options
   autoclose: boolean = true;
   weekStart: number = 1;
   format: string = "dd.mm.yyyy";
+  todayHighlight:boolean = true;
 }

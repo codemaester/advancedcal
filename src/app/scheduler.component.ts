@@ -23,6 +23,7 @@ export class SchedulerComponent implements OnInit {
   dateStart: Date;
 
   dataSource:Observable<any>;
+  allocation:string;
 
   constructor(private booking: Booking, private state: GlobalState,
     private router: Router, private calendarService: CalendarService,
@@ -63,6 +64,10 @@ export class SchedulerComponent implements OnInit {
   }
 
   onSearch(): void {
+    this.calendarService.getAllocation(this.booking).then(
+      (response:any) => this.zone.run(
+        () => this.allocation = JSON.stringify(response.result))
+    );
   }
 
  typeaheadOnSelect(e:TypeaheadMatch):void {
@@ -70,5 +75,6 @@ export class SchedulerComponent implements OnInit {
    this.participant.name = e.item.name;
    this.onAdd();
  }
+
 
 }

@@ -16,7 +16,9 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {
     gapi.signin2.render('my-signin2', {
-      'scope': 'profile email https://www.googleapis.com/auth/admin.directory.user.readonly',
+      'scope': 'profile email ' +
+              'https://www.googleapis.com/auth/admin.directory.user.readonly ' +
+              'https://www.googleapis.com/auth/calendar',
       'width': 240,
       'height': 50,
       'longtitle': true,
@@ -32,6 +34,7 @@ export class AppComponent implements OnInit {
     this.state.signedIn = true;
     this.state.imageUrl = googleUser.getBasicProfile().getImageUrl();
     this.state.userName = googleUser.getBasicProfile().getGivenName();
+    this.state.email = googleUser.getBasicProfile().getEmail();
     this.router.navigate(['/scheduler']);
   }
 

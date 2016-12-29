@@ -2,3 +2,7 @@
 .row.extra-margin {
    margin-bottom: 5px;
 }
+
+.row.extra-margin-2 {
+   margin-bottom: 10px;
+}
