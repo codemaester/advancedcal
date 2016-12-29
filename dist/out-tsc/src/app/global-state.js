@@ -10,12 +10,12 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 import { Injectable } from '@angular/core';
 var GlobalState = (function () {
     function GlobalState() {
-        this.autoApply = true;
-        this.firstWeekdaySunday = false;
-        this.format = "DD.MM.YYYY";
         this.signedIn = false;
         this.userName = "";
         this.imageUrl = "";
+        this.autoclose = true;
+        this.weekStart = 1;
+        this.format = "dd.mm.yyyy";
     }
     return GlobalState;
 }());

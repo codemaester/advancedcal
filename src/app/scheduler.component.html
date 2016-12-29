@@ -7,19 +7,21 @@
 
     <div class="row extra-margin">
       <div class="col-md-11">
-        <input type="text" id="title" name="title" class="form-control" placeholder="Untitled event"/>
+        <input type="text" id="title" name="title" [(ngModel)]="booking.title"
+          class="form-control" placeholder="Untitled event"/>
       </div>
     </div>
 
     <div class="row extra-margin">
       <div class="form-group">
-        <div class="col-md-3">
+        <div class="col-md-2">
           <label for="dateStart">Start</label>
-          <ng2-datepicker id="dateStart" name="dateStart"
-            [(ngModel)]="booking.start" [options]="state"></ng2-datepicker>
+          <datetime [timepicker]="false" id="dateStart" name="dateStart"
+          [(ngModel)]="booking.start" [datepicker]="state"></datetime>
         </div>
 
         <div class="col-md-2">
+          <label for="duration">Duration</label>
           <select class="form-control" required
           [(ngModel)]="booking.duration" id="duration" name="duration">
              <option *ngFor="let duration of durations" [ngValue]="duration">
@@ -34,7 +36,8 @@
       <div class="form-group">
         <div class="col-md-11">
           <label for="location">Where</label>
-          <input type="text" id="location "name="location" class="form-control" placeholder="Location"/>
+          <input type="text" id="location "name="location"
+          [(ngModel)]="booking.location" class="form-control" placeholder="Location"/>
         </div>
       </div>
     </div>
@@ -43,7 +46,8 @@
       <div class="form-group">
         <div class="col-md-11">
           <label for="description">Description</label>
-          <textarea id="description" name="description" class="form-control" rows="5">
+          <textarea id="description" name="description" class="form-control"
+          [(ngModel)]="booking.description" rows="5">
           </textarea>
         </div>
       </div>
@@ -62,7 +66,8 @@
           [typeaheadOptionField]="'name'"/>
       </div>
       <div class="col-md-1">
-        <button class="btn btn-default btn-block" type="submit" (click)="onAdd()">Add</button>
+        <label for="add">&nbsp;</label>
+        <button class="btn btn-default btn-block" id="add" type="submit" (click)="onAdd()">Add</button>
       </div>
     </div>
 

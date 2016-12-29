@@ -10,7 +10,6 @@ import { GlobalState }            from './global-state';
 import { CalendarService }        from './calendar.service';
 import { AttendanceLevel, REQUIRED, LEVELS } from './attendance-level';
 import { Duration, DURATIONS } from './duration';
-import { DateModel } from 'ng2-datepicker';
 
 @Component({
   selector: 'scheduler',
@@ -21,6 +20,7 @@ export class SchedulerComponent implements OnInit {
   participant: Participant = {email: "", name: "", attendanceLevel: REQUIRED};
   levels: Array<AttendanceLevel> = LEVELS;
   durations: Array<Duration> = DURATIONS;
+  dateStart: Date;
 
   dataSource:Observable<any>;
 

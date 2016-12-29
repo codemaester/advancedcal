@@ -11,6 +11,9 @@ import { Injectable } from '@angular/core';
 import { DURATIONS } from './duration';
 var Booking = (function () {
     function Booking() {
+        this.title = "";
+        this.description = "";
+        this.location = "";
         this.participants = [];
         this.duration = DURATIONS[0];
     }
