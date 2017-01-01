@@ -13,7 +13,7 @@ export class Booking {
 
   participants: Participant[] = [];
   start: Date = new Date();
-  duration: Duration = DURATIONS[0];
+  duration: Duration = DURATIONS[1];
 
   constructor(private global: GlobalState) {
     this.participants.push(
