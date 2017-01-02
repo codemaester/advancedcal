@@ -11,6 +11,7 @@ import { GlobalState }                    from './global-state';
 import { CalendarService }                from './calendar.service';
 import { AttendanceLevel, REQUIRED, LEVELS } from './attendance-level';
 import { Duration, DURATIONS }            from './duration';
+import { MeetingSlot }                    from './meeting-slot';
 
 @Component({
   selector: 'scheduler',
@@ -22,6 +23,11 @@ export class SchedulerComponent implements OnInit {
   levels: Array<AttendanceLevel> = LEVELS;
   durations: Array<Duration> = DURATIONS;
   dataSource:Observable<any>;
+
+  slots:Array<MeetingSlot>;
+  totalItems:number;
+  itemsPerPage:number = 10;
+  currentPage:number = 1;
 
   constructor(private booking: Booking, private state: GlobalState,
     private router: Router, private calendarService: CalendarService,
@@ -67,6 +73,8 @@ export class SchedulerComponent implements OnInit {
         () => {
           this.booking.setSchedulesFromFreeBusy(response.result);
           this.booking.findFreeSlots();
+          this.initPagination();
+          this.updateSlotsPage();
         })
     );
   }
@@ -75,6 +83,24 @@ export class SchedulerComponent implements OnInit {
    this.participant.email = e.item.email;
    this.participant.name = e.item.name;
    this.onAdd();
+ }
+
+ initPagination():void {
+   this.totalItems = this.booking.openSlots.length;
+   this.currentPage = 1;
+ }
+
+ updateSlotsPage():void {
+   this.slots = this.booking.openSlots.slice(
+     (this.currentPage - 1) * this.itemsPerPage,
+     this.currentPage * this.itemsPerPage);
+ }
+
+ public pageChanged(event:any):void {
+   this.currentPage = event.page;
+   this.updateSlotsPage();
+   console.log('Page changed to: ' + event.page);
+   console.log('Number items per page: ' + event.itemsPerPage);
  }
 
 }

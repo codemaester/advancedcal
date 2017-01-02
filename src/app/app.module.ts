@@ -1,7 +1,7 @@
 import { NgModule }       from '@angular/core';
 import { BrowserModule }  from '@angular/platform-browser';
 import { FormsModule }    from '@angular/forms';
-import { TypeaheadModule } from 'ng2-bootstrap';
+import { TypeaheadModule, PaginationModule } from 'ng2-bootstrap';
 import { NKDatetimeModule } from 'ng2-datetime/ng2-datetime';
 
 import { AppComponent }       from './app.component';
@@ -19,7 +19,8 @@ import { CalendarService }   from './calendar.service';
     FormsModule,
     routing,
     TypeaheadModule,
-    NKDatetimeModule
+    NKDatetimeModule,
+    PaginationModule
   ],
   declarations: [
     AppComponent,

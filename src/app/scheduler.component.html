@@ -125,7 +125,7 @@
       </div>
     </div>
 
-    <div class="row extra-margin" *ngIf="booking.openSlots">
+    <div class="row" *ngIf="slots">
       <div class="col-md-12">
         <table class="table table-condensed">
           <tr>
@@ -134,13 +134,22 @@
             <th>Important</th>
             <th>Optional</th>
           </tr>
-          <tr *ngFor="let slot of booking.openSlots" name="slots">
+          <tr *ngFor="let slot of slots" name="slots">
             <td class="col-md-2">{{slot.start.format('L')}}</td>
             <td class="col-md-2">{{slot.start.format('LT')}}</td>
             <td class="col-md-1">{{slot.getImportant()}}</td>
             <td class="col-md-1">{{slot.getOptional()}}</td>
           </tr>
         </table>
+      </div>
+    </div>
+
+    <div class="row extra-margin" *ngIf="slots">
+      <div class="col-md-6">
+        <pagination [totalItems]="totalItems" [(ngModel)]="currentPage"
+          (pageChanged)="pageChanged($event)" [itemsPerPage]="itemsPerPage"
+          name="pager">
+        </pagination>
       </div>
     </div>
 
