@@ -30,6 +30,23 @@
              </option>
           </select>
         </div>
+
+        <div class="form-group">
+          <div class="col-md-2">
+            <label for="hourMin">Earliest start</label>
+            <input type="number" min="1" max="24" step="1"
+            id="hourMin" name="hourMin" [(ngModel)]="booking.hourMin" class="form-control"/>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div class="col-md-2">
+            <label for="hourMax">Latest start</label>
+            <input type="number" min="1" max="24" step="1"
+            id="hourMax" name="hourMax" [(ngModel)]="booking.hourMax" class="form-control"/>
+          </div>
+        </div>
+
       </div>
     </div>
 
@@ -102,11 +119,29 @@
       </div>
     </div>
 
-    <div class="row">
+    <div class="row extra-margin-2">
       <div class="col-md-1">
         <button type="submit" class="btn btn-primary" (click)="onSearch()">Search...</button>
       </div>
     </div>
-  {{allocation}}
+
+    <div class="row extra-margin" *ngIf="booking.openSlots">
+      <div class="col-md-12">
+        <table class="table table-condensed">
+          <tr>
+            <th>Date</th>
+            <th>Time</th>
+            <th>Important</th>
+            <th>Optional</th>
+          </tr>
+          <tr *ngFor="let slot of booking.openSlots" name="slots">
+            <td class="col-md-2">{{slot.start.format('L')}}</td>
+            <td class="col-md-2">{{slot.start.format('LT')}}</td>
+            <td class="col-md-1">{{slot.getImportant()}}</td>
+            <td class="col-md-1">{{slot.getOptional()}}</td>
+          </tr>
+        </table>
+      </div>
+    </div>
 
 </form>

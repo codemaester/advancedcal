@@ -1,15 +1,16 @@
 import { Component, OnInit, NgZone }      from '@angular/core';
-import { Router }                 from '@angular/router';
-import { Observable }             from 'rxjs/Observable';
-import * as moment from 'moment';
-import { TypeaheadMatch } from 'ng2-bootstrap';
+import { Router }                         from '@angular/router';
+import { Observable }                     from 'rxjs/Observable';
 
-import { Participant }            from './participant';
-import { Booking }                from './booking';
-import { GlobalState }            from './global-state';
-import { CalendarService }        from './calendar.service';
+import * as moment                        from 'moment';
+import { TypeaheadMatch }                 from 'ng2-bootstrap';
+
+import { Participant }                    from './participant';
+import { Booking }                        from './booking';
+import { GlobalState }                    from './global-state';
+import { CalendarService }                from './calendar.service';
 import { AttendanceLevel, REQUIRED, LEVELS } from './attendance-level';
-import { Duration, DURATIONS } from './duration';
+import { Duration, DURATIONS }            from './duration';
 
 @Component({
   selector: 'scheduler',
@@ -20,10 +21,7 @@ export class SchedulerComponent implements OnInit {
   participant: Participant = {email: "", name: "", attendanceLevel: REQUIRED};
   levels: Array<AttendanceLevel> = LEVELS;
   durations: Array<Duration> = DURATIONS;
-  dateStart: Date;
-
   dataSource:Observable<any>;
-  allocation:string;
 
   constructor(private booking: Booking, private state: GlobalState,
     private router: Router, private calendarService: CalendarService,
@@ -66,7 +64,10 @@ export class SchedulerComponent implements OnInit {
   onSearch(): void {
     this.calendarService.getAllocation(this.booking).then(
       (response:any) => this.zone.run(
-        () => this.allocation = JSON.stringify(response.result))
+        () => {
+          this.booking.setSchedulesFromFreeBusy(response.result);
+          this.booking.findFreeSlots();
+        })
     );
   }
 
@@ -75,6 +76,5 @@ export class SchedulerComponent implements OnInit {
    this.participant.name = e.item.name;
    this.onAdd();
  }
-
 
 }

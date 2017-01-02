@@ -31,7 +31,7 @@ export class CalendarService {
           'method': 'POST',
           'body': {
             'timeMin': moment(booking.start).toISOString(),
-            'timeMax': moment(booking.start).add(14, 'd').toISOString(),
+            'timeMax': moment(booking.start).add(booking.lookAheadDays, 'd').toISOString(),
             'items': booking.participants.map(p => ({'id': p.email}))
           }
     });

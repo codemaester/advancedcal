@@ -3,16 +3,16 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 
-import { Schedules } from './schedules';
+import { Booking } from './booking';
 
 describe('Schedules test', () => {
-  let schedules: Schedules;
+  let booking: Booking;
 
   beforeEach(() => {
-    schedules = new Schedules();
+    booking = new Booking();
   });
 
   it('should create', () => {
-    expect(schedules.getFree()).toBe(1);
+    expect(booking).toBeThere();
   });
 });
