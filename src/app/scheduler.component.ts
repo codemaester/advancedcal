@@ -24,6 +24,7 @@ export class SchedulerComponent implements OnInit {
   durations: Array<Duration> = DURATIONS;
   dataSource:Observable<any>;
 
+  loading:boolean = false;
   slots:Array<MeetingSlot>;
   totalItems:number;
   itemsPerPage:number = 10;
@@ -68,6 +69,7 @@ export class SchedulerComponent implements OnInit {
   }
 
   onSearch(): void {
+    this.loading = true;
     this.calendarService.getAllocation(this.booking).then(
       (response:any) => this.zone.run(
         () => {
@@ -75,6 +77,7 @@ export class SchedulerComponent implements OnInit {
           this.booking.findFreeSlots();
           this.initPagination();
           this.updateSlotsPage();
+          this.loading = false;
         })
     );
   }
