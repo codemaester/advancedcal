@@ -1,13 +1,14 @@
-import { Injectable } from '@angular/core';
-import { Participant } from './participant';
-import { Schedule } from './schedule';
-import { Event } from './event';
-import { MeetingSlot } from './meeting-slot';
-import { Duration, DURATIONS } from './duration';
-import { GlobalState } from './global-state';
-import { REQUIRED, AttendanceLevel, LEVELS } from './attendance-level';
-import * as moment from 'moment';
-import { Moment } from 'moment';
+import { Injectable }                       from '@angular/core';
+import { Participant }                      from './participant';
+import { Schedule }                         from './schedule';
+import { Event }                            from './event';
+import { MeetingSlot }                      from './meeting-slot';
+import { Duration, DURATIONS }              from './duration';
+import { GlobalState }                      from './global-state';
+import { REQUIRED, IMPORTANT, OPTIONAL,
+          AttendanceLevel, LEVELS }         from './attendance-level';
+import * as moment                          from 'moment';
+import { Moment }                           from 'moment';
 
 @Injectable()
 export class Booking {
@@ -21,7 +22,7 @@ export class Booking {
 
   schedules:Array<Schedule>;
 
-  lookAheadDays:number = 14;
+  lookAheadDays:number = 7;
   hourMin:number = 10;
   hourMax:number = 17;
 
@@ -101,6 +102,14 @@ export class Booking {
     if (slot.validateRequired(this.attendeeLevels.get(REQUIRED))) {
       this.openSlots.push(slot);
     }
+  }
+
+  countImportantAttendees():number {
+    return this.attendeeLevels.get(IMPORTANT);
+  }
+
+  countOptionalAttendees():number {
+    return this.attendeeLevels.get(OPTIONAL);
   }
 
 }

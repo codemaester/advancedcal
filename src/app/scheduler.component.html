@@ -34,16 +34,27 @@
         <div class="form-group">
           <div class="col-md-2">
             <label for="hourMin">Earliest start</label>
-            <input type="number" min="1" max="24" step="1"
-            id="hourMin" name="hourMin" [(ngModel)]="booking.hourMin" class="form-control"/>
+            <input type="number" min="1" max="24" step="1" id="hourMin"
+              name="hourMin" [(ngModel)]="booking.hourMin"
+              class="form-control"/>
           </div>
         </div>
 
         <div class="form-group">
           <div class="col-md-2">
             <label for="hourMax">Latest start</label>
-            <input type="number" min="1" max="24" step="1"
-            id="hourMax" name="hourMax" [(ngModel)]="booking.hourMax" class="form-control"/>
+            <input type="number" min="1" max="24" step="1" id="hourMax"
+              name="hourMax" [(ngModel)]="booking.hourMax"
+              class="form-control"/>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div class="col-md-2">
+            <label for="daysAhead">Lookahead days</label>
+            <input type="number" min="1" max="28" step="1" id="daysAhead"
+              name="daysAhead" [(ngModel)]="booking.lookAheadDays"
+              class="form-control"/>
           </div>
         </div>
 
@@ -55,7 +66,8 @@
         <div class="col-md-12">
           <label for="location">Where</label>
           <input type="text" id="location "name="location"
-          [(ngModel)]="booking.location" class="form-control" placeholder="Location"/>
+            [(ngModel)]="booking.location" class="form-control"
+            placeholder="Location"/>
         </div>
       </div>
     </div>
@@ -146,8 +158,8 @@
           <tr *ngFor="let slot of slots" name="slots">
             <td class="col-md-2">{{slot.start.format('L')}}</td>
             <td class="col-md-2">{{slot.start.format('LT')}}</td>
-            <td class="col-md-1">{{slot.getImportant()}}</td>
-            <td class="col-md-1">{{slot.getOptional()}}</td>
+            <td class="col-md-1">{{slot.getImportant()}}/{{booking.countImportantAttendees()}}</td>
+            <td class="col-md-1">{{slot.getOptional()}}/{{booking.countOptionalAttendees()}}</td>
           </tr>
         </table>
       </div>
